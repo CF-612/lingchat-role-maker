@@ -14,11 +14,11 @@
 
 ## 使用说明（安装）
 
-1. 下载本仓库（或只下载 `skills/` 下对应文件夹）；
-2. 把 `lingchat-role-maker` 文件夹放入 AI 助手的 skill 目录：
-   - **DeepseekHarness（dsh）**：`C:\Users\<你>\.dsh\skills\`
-   - **其他 Agent**：按各自 skill 目录约定放置（项目级 `.dsh/skills` 或对应配置）；
-3. 在对话中加载 skill 并说出你想做的角色名（如「梵高」），AI 会按流程带你走完。
+给你的 AI Agent 发送如下内容：
+
+> 帮我下载 https://github.com/CF-612/lingchat-role-maker 上的 skill 到本地，并加载这个 skill。只下载 skill，不克隆整个仓库。
+
+Agent 会只拉取本仓库 `skills/` 下的两个 skill 文件夹（`lingchat-role-maker` 与 `lingchat-role-maker-pro`）放到本地 skill 目录并加载。加载完成后，对 AI 说出你想做的角色名（如「梵高」），它会按流程带你走完整个制作过程。
 
 **前置条件**：梯子（部分下载站需科学上网）、能写文件的 AI 助手、至少一个 LLM API key
 
