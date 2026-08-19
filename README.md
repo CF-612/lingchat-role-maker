@@ -1,7 +1,7 @@
 # LingChat 角色制作速通（AI 助手 Skill 包）
 
-> 在 AI 助手辅助下，从零制作「拥有自训练日语语音模型的 LingChat AI Gal 角色」——
-> 静态立绘 + 20 情绪差分 + 独立训练的语音模型。实战蒸馏自完整跑通的 FGO 角色：梵高（日配 + 6 套立绘 + 自定义语音模型）、但丁（日配 + 5 套立绘 + 自定义语音模型）。
+> 在 AI 助手的辅助下，基于LingChat软件，快速制作「拥有自训练日语语音模型的全语音可互动 AI 角色」（专为FGO角色制作）——
+> 静态立绘 + 20 情绪差分 + 独立训练的语音模型。
 
 ## 这是什么
 
@@ -20,9 +20,9 @@
    - **其他 Agent**：按各自 skill 目录约定放置（项目级 `.dsh/skills` 或对应配置）；
 3. 在对话中加载 skill 并说出你想做的角色名（如「梵高」），AI 会按流程带你走完。
 
-**前置条件**：梯子（部分下载站需科学上网）、能写文件的 AI 助手、LingChat 本体、至少一个 LLM API key；全程约需下载 5G 训练包（Style-Bert-VITS2-FULL）+ 数小时语音训练（取决于数据量与显卡）。
+**前置条件**：梯子（部分下载站需科学上网）、能写文件的 AI 助手、至少一个 LLM API key
 
-**不适合**：不做 FGO 角色、不想自己训练语音模型（只想用现成 TTS）的用户——本 Skill 默认包含自训语音，无跳过分支。
+**不适合**：不想自己训练语音模型（只想用现成 TTS）的用户
 
 ## 流程速览
 
@@ -38,7 +38,8 @@
 - LingChat 开源项目：https://github.com/SlimeBoyOwO/LingChat
 - 语音训练整合包（Style-Bert-VITS2-FULL）：https://www.modelscope.cn/models/lingchat-research-studio/Style-Bert-VITS2-FULL
 - 语音/资料源（Mooncell）：https://fgo.wiki/
-- 表情差分合成工具（阿良良睦历）：见 skill 内 0.4 资源表
+- 表情差分合成工具（来自b站up主阿良良睦历）：https://pan.baidu.com/s/1m6tv52y5FJfz-bgk7OHDfw?pwd=fgo1
+https://pan.quark.cn/s/a6162b75285b?pwd=E11Z
 
 ## 版权与许可
 
