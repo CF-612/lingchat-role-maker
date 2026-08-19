@@ -38,7 +38,8 @@ description: FGO 特化「速通」教程：端到端制作「拥有自训练语
 2. **检查本机**：LingChat / ffmpeg / 整合包（`VoiceSpeechMaker-core-fork`）是否已装（`Test-Path` 或搜 D 盘常见目录）——避免让用户重复下载（0.7 询问技巧）。
 3. **一次问清 0.7 的六项问题**（角色名含其他形象 / 自训语音确认 / 做几个形象 / 表情图工具 / ffmpeg / LingChat 安装方式），不中途追加关键询问。
 4. **复制交接清单**：把 `references/role_handoff_checklist_template.md` 复制为 `<角色名>_交接清单.md`，随进度逐项勾选（0.3 第 3 条 / 0.7）。
-5. **开爬**：Agent 侧开工——爬语音页 + 资料页留档（1.4；**外网站点抓取前先看 0.8 网络访问与代理，已内联、无需外部 skill**，fgo.wiki 等国内站可直连），同时向用户交代其侧任务（并行任务分配见交接清单阶段 1）。
+5. **🛑 过「开爬闸门」再动手（硬性停止检查点，0.3.3）**：爬取前逐项核对——**0.7 六项问题是否全部问完？用户是否明确许可开工？两个条件都满足才放行**；未过闸门禁止任何爬取/联网动作（搜索角色名、抓语音页/资料页、下载文件都不行），继续等用户回复。
+6. **开爬**：Agent 侧开工——爬语音页 + 资料页留档（1.4；**外网站点抓取前先看 0.8 网络访问与代理，已内联、无需外部 skill**，fgo.wiki 等国内站可直连），同时向用户交代其侧任务（并行任务分配见交接清单阶段 1）。
 
 > **⚠️ pro 版默认不加载**：`lingchat-role-maker-pro` 是进阶扩展，**只有用户明确提出进阶需求**（全量语音补全 / BGM 补充语料 / 立绘补全 / 语速调优 / 本地 TTS / 手机端 / 排障踩坑大全）时才加载；无需求全程只用本速通版，**不要主动加载 pro**。
 
@@ -81,25 +82,43 @@ description: FGO 特化「速通」教程：端到端制作「拥有自训练语
 
 ### 0.3.2 三条红线（贯穿全流程，违反即执行失败）
 
-> 以下三条是实战血泪提炼的最高纪律，**任何一步都不得违反**；正文其余「注意/坑」均为普通级别，唯此三条为红线。对应细节见 6.1 #12/#13/#14。
+> 以下三条是实战血泪提炼的最高纪律，**任何一步都不得违反**；正文其余「注意/坑」均为普通级别，唯此三条为红线（**另有 0.3.3 开爬闸门，同为硬性纪律且更靠前**）。对应细节见 6.1 #12/#13/#14。
 
 1. **不编造**：示例语音/台词必须来自 fgo.wiki 原文（留档 txt 摘抄，中文 + 日文一一对应），**禁止 Agent 自编台词冒充原语音**（对应 6.1 #13；可验证判据见 4.4.4）。
 2. **不覆盖**：改角色 settings.yml 前**必须先 read 当前文件**（用户可能已在软件里改过），只替换用户点名要改的字段，其余原样保留（对应 6.1 #12）。
 3. **不替用户定映射**：**差分→情绪映射（图片↔情绪）必须由用户定**，Agent 只做机械搭建与命名，绝不猜名、绝不替用户定死映射（对应 6.1 #14）。**⚠️ 注意区分**：红线 3 只管「图片→情绪」的映射；而 4.4.4 里给示例语音文本按台词内容标注【情绪】差分是**语义标注**（情绪随台词内容走，无需用户逐个确认）——两者不是一回事，不要因为红线 3 把示例标注也推给用户。
 
+### 0.3.3 开爬闸门（硬性停止检查点，违反即执行失败）
+
+> 与三条红线同级、且**比它们更靠前**：**第一次爬取动作（语音页 / 资料页 / 任何联网抓取，包括搜索角色名）之前必须过此闸门**。实战教训：Agent 问题没问完就自顾自开爬，用户直接发火——**问问题阶段没有任何「默认继续」**。
+
+**闸门条件（两个都满足才放行）**：
+1. **0.7 的六项问题全部问完且用户逐项回答**：角色名（含其他形象）/ 自训语音 / 做几个形象 / 表情图工具 / ffmpeg / LingChat 安装方式——**没有「没回答就跳过」的项，不能拿「用户没答 = 默认同意」当理由**；
+2. **用户明确许可开工**：用户说了类似「可以 / 开始吧 / 确认 / 开工」的话——**沉默、答非所问、只答了部分问题、或只是发了链接，都不算许可**。
+
+**未过闸门的行为（严格）**：
+- **禁止一切爬取/联网动作**：搜索角色名、抓语音页/资料页、下载任何文件，一律不行；
+- 只允许：继续问完剩余问题、复述已确认的信息请用户确认、等待用户回复；
+- 用户长时间无响应 → 可提醒当前待办（给链接/给步骤），但**不能因等不到回复就默认许可开工**。
+
+**过闸门判据（Agent 开爬前自查，逐项打勾）**：
+- [ ] 六项问题全部问过，用户逐项有回答
+- [ ] 用户明确说了许可开工的话
+- [ ] 交接清单阶段 1 的用户侧任务已交代（0.7「确认后、开工前」）
+
 ### 0.4 资源与软件地址清单
 
 | 名称 | 地址 | 用途 | 需梯子 |
 |---|---|---|---|
-| LingChat 开源项目 | https://github.com/SlimeBoyOwO/LingChat | 项目主页 / Releases 下载安装包 | 是 |
-| LingChat 开发指南 | https://slimeboyowo.github.io/LingBlog/blog/projects/ling-chat/develop/ | 字段/接口/设置疑问查这里及站内链接 | 视网络 |
+| LingChat 开源项目 | https://github.com/SlimeBoyOwO/LingChat | 项目主页 / Releases 下载安装包 | 视网络（2026-08 实测可直连） |
+| LingChat 开发指南 | https://slimeboyowo.github.io/LingBlog/blog/projects/ling-chat/develop/ | 字段/接口/设置疑问查这里及站内链接 | 视网络（2026-08 实测可直连） |
 | Mooncell（FGO 中文 Wiki） | https://fgo.wiki/ | 语音原文/角色资料/立绘（中文站，直连；**名字叫 Mooncell，网址是 fgo.wiki**，用户说「mooncell」即此站） | 否 |
 | fandom | https://fategrandorder.fandom.com/wiki | 英文资料备用；**含从者全身立绘 + 透明底愚人节立绘**（2.2）；⚠️ 图多，Agent 爬取不保证成功，失败时让用户手动去从者页 Gallery 标签最底部保存 | 是 |
-| FFmpeg-Builds | https://github.com/BtbN/FFmpeg-Builds | 音频格式转换（下载解压命令行用，**无需用户操作**，Agent 配好路径） | 是 |
+| FFmpeg-Builds | https://github.com/BtbN/FFmpeg-Builds | 音频格式转换（下载解压命令行用，**无需用户操作**，Agent 配好路径） | 视网络（2026-08 实测可直连） |
 | Style-Bert-VITS2-FULL | https://www.modelscope.cn/models/lingchat-research-studio/Style-Bert-VITS2-FULL | **训练整合包本体 + 底模**（压缩包约 5G，解压后约 12G，解压即 VoiceSpeechMaker-core-fork，见 0.5 避坑！） | 否 |
 | 表情差分合成工具（阿良良睦历） | 百度 https://pan.baidu.com/s/1m6tv52y5FJfz-bgk7OHDfw?pwd=fgo1 / 夸克 https://pan.quark.cn/s/a6162b75285b?pwd=E11Z | **获取角色表情差分的推荐工具**（2.0）；教程 BV1T8g56LEnb | 否（网盘国内） |
 | FGO 全角色桌宠（阿良良睦历） | B站 BV1C48u6rEMq | 同位大佬开发的桌宠软件，**含内置差分拆分工具**（2.0 备选） | — |
-| chaldea | https://github.com/chaldea-center/chaldea/releases | （可选）从者 BGM/背景素材获取，**非差分用途**（4.0） | 是 |
+| chaldea | https://github.com/chaldea-center/chaldea/releases | （可选）从者 BGM/背景素材获取，**非差分用途**（4.0） | 视网络（2026-08 实测可直连） |
 
 > **⚠️ 链接主动展示**：凡涉及让用户**下载/访问**的步骤（LingChat 安装包、FULL 包、表情差分合成工具网盘、fandom 等），**必须把具体链接随步骤一起展示给用户**，不要只写工具名让用户自己找（如表情差分合成工具要给出百度/夸克网盘地址）。
 >
@@ -171,7 +190,7 @@ python -c "import urllib.request as u; print(u.urlopen('https://example.com', ti
 ```
 输出 200 即通。
 
-**受限环境兜底（dsh 沙箱等实测）**：在 dsh 受限沙箱里，Windows 自带网络栈 HTTPS 可能全挂——curl 报 `SEC_E_NO_CREDENTIALS`（schannel 凭据问题）、Invoke-WebRequest 报「基础连接已经关闭」、Node fetch 无直连。**遇到这类报错不要反复重试，直接上 Python urllib + ProxyHandler 模板（7.1，标准库无需 pip，跨平台通用）**。注意：这是受限环境的结论，普通本机（无沙箱）curl 大概率正常，不必照搬。
+**受限环境兜底**：若遇到 Windows 自带网络栈 HTTPS 全挂（curl 报 `SEC_E_NO_CREDENTIALS`、Invoke-WebRequest 报「基础连接已经关闭」、Node fetch 无直连），**不要反复重试，先用 Python urllib 直连验证（7.1 模板不设 proxy 即直连），直连仍不通才套代理**。⚠️ 2026-08 实测：本机 GitHub 已可直连（此前误判「必须代理」，实为 token 权限问题）——**「必须代理」类结论先实测再信**。
 
 **git / pip / huggingface 走代理**：`git config --global http.proxy http://<代理地址>:<端口>`（https 同理）；或临时设 `$env:HTTP_PROXY` / `$env:HTTPS_PROXY`（Windows）后再跑 pip / huggingface-cli；macOS/Linux 用 `export http_proxy=... https_proxy=...`。
 

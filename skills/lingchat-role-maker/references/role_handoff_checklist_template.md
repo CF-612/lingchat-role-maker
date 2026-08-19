@@ -19,6 +19,8 @@
 
 ## 阶段 1：并行开工（确认信息后，先告诉用户这段时间做什么）
 
+> **🛑 开爬闸门（0.3.3）**：进入本节前必须确认——**0.7 六项问题全部问完 + 用户明确许可开工**；未过闸门禁止任何爬取/联网动作，继续等用户回复。
+
 用户侧（耗时前置，先开始）：
 - [ ] （用户）下载 **Style-Bert-VITS2-FULL 包**（**最耗时，最先下**，约 5G：https://www.modelscope.cn/models/lingchat-research-studio/Style-Bert-VITS2-FULL ；解压即整合包 `VoiceSpeechMaker-core-fork`，0.5）
 - [ ] （用户）下载差分工具（2.0 的链接）
