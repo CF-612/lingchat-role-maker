@@ -32,7 +32,7 @@ clothes:                     # 服装列表，每套 = name + prompt（prompt �
   prompt: TODO：描述该形态外貌/气质的原文
 - name: 灵基再临2            # TODO：其余服装照此格式追加，数量与用户确认的服装数一致
   prompt: TODO：……
-scale_p: 1.0                 # 桌宠缩放
+scale_p: 1.75               # 桌宠缩放（默认 1.75，1.0 会露下白边）
 offset_x_p: 0.0
 offset_y_p: -20.0
 voice_models:                # 语音模型配置（必须 20 字段齐全，见 voice_models_20字段.md）

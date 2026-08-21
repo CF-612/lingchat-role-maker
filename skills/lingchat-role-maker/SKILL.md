@@ -408,7 +408,7 @@ characters/<角色文件夹>/
 | `info` | 简介：来自 Mooncell 资料「详情」**直接复制粘贴**，不自行概括 | 多行用 `\|-` |
 | `body_part` | 空对象占位 | `{}` |
 | `scale` / `offset_x` / `offset_y` | 立绘缩放/偏移 | ⚠️ **f64，必须浮点字面量**（`1.0`/`0.0`，写 `0` 解析失败）；FGO 半身立绘默认 1.0——官方默认 1.4 是给全身立绘的，半身用 1.4 会填满整个屏幕；若做全身立绘则提醒用户自行调整 |
-| `scale_p` / `offset_x_p` / `offset_y_p` | 桌宠模式缩放/偏移 | 同上，浮点 |
+| `scale_p` / `offset_x_p` / `offset_y_p` | 桌宠模式缩放/偏移 | 同上，浮点；⚠️ **桌宠默认 1.75**（按 1.0 会在桌宠模式露出下白边） |
 | `clothes_name` | 当前默认服装名 | 无则 `null` |
 | `clothes` | 服装列表，每套 = `name` + `prompt`（外貌/气质描述） | 列表，顺序即 4.4.1 中的示例写法 |
 | `voice_models` | 语音模型配置 | **必须 20 字段齐全**，见 `references/voice_models_20字段.md`（注意 `'0'` 字符串 / `0` 整数 / `null` 三种类型） |
@@ -446,7 +446,7 @@ clothes:                     # 服装列表，每套 = name + prompt（prompt �
   name: 向日葵
 - name: 灵基再临2
   prompt: 第二灵基……
-scale_p: 1.0                 # 桌宠缩放
+scale_p: 1.75               # 桌宠缩放（默认 1.75；1.0 会在桌宠模式露下白边）
 offset_x_p: 0.0
 offset_y_p: -20.0
 voice_models:                # 语音模型配置（完整 20 字段，见 references/voice_models_20字段.md）
@@ -726,7 +726,7 @@ for i, ln in enumerate(lines):
 
 - [ ] esd.list 行数 = raw wav 数，无重复、无格式异常（4 段）【7.4 检查脚本】
 - [ ] 双数据集同步一致：工作区副本 vs 整合包 Data/<模型名>/ 的 esd.list 与 raw 数量相同（1.3）
-- [ ] settings.yml：无 BOM、offset/scale 为浮点、character_folder 与文件夹一致、scale=1.0（FGO 半身立绘）
+- [ ] settings.yml：无 BOM、offset/scale 为浮点、character_folder 与文件夹一致、scale=1.0（半身立绘）、scale_p=1.75（桌宠模式默认，防露白边）
 - [ ] 每个 avatar 目录（含服装子目录）情绪图 + 头像数量符合 4.2 决策规则（新角色 = 标准 20 情绪 + 头像 = 21 张；仅复刻参考角色时才以该目录实际清单为准）
 - [ ] 模型三件套（config.json/safetensors/style_vectors.npy）在 model_assets/<模型名>/
 - [ ] 训练底模为 Style-Bert-VITS2-FULL 包（0.5），未误用 2.7G 成品包

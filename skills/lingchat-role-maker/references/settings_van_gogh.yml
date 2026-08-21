@@ -42,7 +42,7 @@ clothes:
   prompt: |-
     矿工从者。
     愚人节形态的矿工梵高！这个Q版的尺寸或许莫名的很适合某些游戏？
-scale_p: 2.3
+scale_p: 2.3   # 梵高实测调校值；通用默认 1.75（1.0 会露下白边）
 offset_x_p: 0.0
 offset_y_p: -20.0
 voice_models:
