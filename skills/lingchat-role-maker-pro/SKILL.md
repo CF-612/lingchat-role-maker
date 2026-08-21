@@ -1,6 +1,6 @@
 ---
 name: lingchat-role-maker-pro
-description: LingChat 角色制作**进阶扩展**：前置速通版 lingchat-role-maker（已跑通「能说话的角色」）。按需加载：语音全量补全（灵衣/新皮肤/漏下载）、BGM 人声分离补充语料（demucs+VAD+whisper）、立绘补全/全身化（psd-tools）、语速与合成参数调优、本地 TTS 备选方案（.sbv2 转换/导入）、完整踩坑大全（#1~#43）、手机端部署（v0.4.7+ APK/局域网同步/MT管理器）、视觉模型可选配（角色看图/DeepSeek deepseek-v4-flash-vision-exp、阿里百炼官方推荐、智谱 4V-Flash 免费）、非 FGO 迁移思路。**不适合**：还没跑通速通版、只做 FGO 速通角色的用户。
+description: LingChat 角色制作**进阶扩展**：前置速通版 lingchat-role-maker（已跑通「能说话的角色」）。按需加载：语音全量补全（灵衣/新皮肤/漏下载）、BGM 人声分离补充语料（demucs+VAD+whisper）、立绘补全/全身化（psd-tools）、语速与合成参数调优、本地 TTS 备选方案（.sbv2 转换/导入）、完整踩坑大全（#1~#43）、手机端部署（v0.4.7+ APK/局域网同步/MT管理器）、视觉模型可选配（角色看图/推荐 Gemini 学生免费额度、DeepSeek 有 800×800 图片限制、阿里百炼、智谱 4V-Flash 免费）、非 FGO 迁移思路。**不适合**：还没跑通速通版、只做 FGO 速通角色的用户。
 ---
 
 # LingChat 角色制作进阶扩展（lingchat-role-maker-pro）
@@ -604,19 +604,26 @@ LingChat 的视觉大模型 key **可选配**（速通版 0.2/4.0）：不开也
 - 用户询问「**视觉模型 key 怎么获取 / 配哪个**」；
 - Agent 侧想用视觉能力辅助差分**初步分组**（仅初步分组，真实情绪映射仍归用户——速通版红线 3 / 6.5 #16）。
 
-### 11.1 key 获取（三个方案，任选其一）
+### 11.1 key 获取（四个方案，任选其一）
 
-**① DeepSeek 官方视觉模型（2026-08 更新，有 DeepSeek key 即用）**
+**① Google Gemini（推荐：识别强，学生一年免费额度）**
+- 平台：https://aistudio.google.com/ （Google AI Studio 申请 API key）
+- 优势：**成熟的主流视觉模型**，识别准确；**学生可申请一年免费额度**——仅用于图片识别的话免费额度的 API 调用**完全够用**，**额度每日刷新**。
+- 模型：Gemini 系列（如 Gemini Flash，以平台模型列表为准）。
+- 适合：需要**屏幕截图、大图、复杂图像**识别场景的用户（首推）。
+
+**② DeepSeek 官方视觉模型（2026-08 更新，有 DeepSeek key 即用）**
 - 模型名：**`deepseek-v4-flash-vision-exp`**（DeepSeek 更新后的视觉模型）。
+- ⚠️ **硬限制：最多只能识别 800×800 大小的图片**——获取屏幕截图（大图）等场景**完全不适用**，只能识别小图；用到截屏/大图识别时不要推荐此模型。
 - 流程：已有 DeepSeek API key 的用户**无需额外注册任何平台**——LingChat「大模型管理」里视觉模型直接填模型名 `deepseek-v4-flash-vision-exp` 即可。
-- 适合：已有 DeepSeek key 的用户（零额外注册成本，最省事）。
+- 适合：已有 DeepSeek key、且只识别小图（如小尺寸表情图）的用户。
 
-**② 阿里云百炼（官方推荐，付费按量）**
+**③ 阿里云百炼（官方推荐，付费按量）**
 - 平台：https://bailian.console.aliyun.com/cn-beijing?tab=api#/api/?type=model&url=2712195
 - 流程：登录阿里云 → 开通百炼（DashScope）→ 控制台「API-KEY 管理」创建 key → 在 LingChat 大模型管理里选视觉模型（qwen-vl 系列，如 qwen-vl-plus / qwen3-vl-plus 等，**以平台当前模型列表为准**）。
 - 适合：已有阿里云账号、需要稳定高精度识别的用户。
 
-**③ 智谱 GLM-4V-Flash（免费，作者自用）**
+**④ 智谱 GLM-4V-Flash（免费，作者自用）**
 - 平台：https://bigmodel.cn/apikey/platform
 - 智谱开放平台的免费视觉模型（作者实测自用，免费额度以平台当前政策为准），模型名 **GLM-4V-Flash**。
 - 适合：想零成本体验角色看图能力的用户。
